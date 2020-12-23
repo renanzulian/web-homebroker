@@ -51,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     HttpClientModule,
     MatExpansionModule,
+    RouterModule,
   ],
 })
 export class DefaultModule {}
