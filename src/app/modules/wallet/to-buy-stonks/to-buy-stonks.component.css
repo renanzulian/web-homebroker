@@ -6,3 +6,7 @@ mat-horizontal-stepper {
   padding: 20px 20% 0px 20%;
   height: 100%;
 }
+
+.action-btn {
+  margin: 0px 5px 0px 5px;
+}
