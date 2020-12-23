@@ -12,13 +12,27 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { ToBuyStonksComponent } from 'src/app/modules/wallet/to-buy-stonks/to-buy-stonks.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-  declarations: [DefaultComponent, HomeComponent, WalletComponent],
+  declarations: [
+    DefaultComponent,
+    HomeComponent,
+    WalletComponent,
+    ToBuyStonksComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
+    MatFormFieldModule,
     MatSidenavModule,
     MatCardModule,
     MatButtonModule,
@@ -26,6 +40,13 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatIconModule,
     MatDividerModule,
     MatTabsModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatStepperModule,
+    MatTableModule,
   ],
 })
 export class DefaultModule {}
