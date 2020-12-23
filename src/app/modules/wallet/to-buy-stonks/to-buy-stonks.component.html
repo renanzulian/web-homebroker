@@ -1,5 +1,5 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step>
+  <mat-step [completed]="dataSource.length < 3">
     <ng-template matStepLabel>Gerenciar carteira</ng-template>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!--- Note that these columns can be defined in any order.
@@ -19,8 +19,10 @@
 
       <!-- Weight Column -->
       <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef>Valor</th>
-        <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+        <th mat-header-cell *matHeaderCellDef>Cotação atual</th>
+        <td mat-cell *matCellDef="let element">
+          R$ {{ element.value.toFixed(2) }}
+        </td>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -31,17 +33,46 @@
 
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>Total</th>
-        <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+        <td mat-cell *matCellDef="let element">
+          R$ {{ element.total.toFixed(2) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="profit">
+        <th mat-header-cell *matHeaderCellDef>Rentabilidade</th>
+        <td mat-cell *matCellDef="let element">
+          {{ (element.profit * 100).toFixed(1) }}%
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="toSellStonks(element.ticker)"
+          >
+            VENDER
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <div style="padding-top: 20px;">
-      <button mat-button matStepperNext>Next</button>
+    <div style="padding-top: 30px">
+      <h3>
+        Seu saldo na conta é de <strong>R$ {{ estate.toFixed(2) }}</strong>
+      </h3>
+      <p *ngIf="dataSource.length >= 3" style="color: red">
+        Você já atingiu o limite de 3 ações para sua carteira.
+      </p>
+      <button style="float: right;" mat-button matStepperNext>Próximo</button>
+
     </div>
   </mat-step>
-  <mat-step [stepControl]="stonksFinderForm">
+  <mat-step [completed]="tickerToBuy.ticker !== ''">
     <form [formGroup]="stonksFinderForm">
       <ng-template matStepLabel>Encontrar ativo</ng-template>
       <mat-form-field>
@@ -53,18 +84,52 @@
           required
         />
       </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <button style="margin-left: 10px" mat-button (click)="findTicker()">
+        ENCONTRAR
+      </button>
+      <p>
+        Nomenclatura da ação (ticker):
+        {{ tickerToBuy.ticker || "Nenhum valor encontrado" }}
+      </p>
+      <p>
+        Nome da empresa: {{ tickerToBuy.name || "Nenhum valor encontrado" }}
+      </p>
+      <div style="padding-top: 30px;">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button style="float: right;"  mat-button matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Negociar ativo</ng-template>
-    <p>You are now done.</p>
+  <mat-step [stepControl]="stonksTraderForm">
+    <form [formGroup]="stonksTraderForm">
+      <ng-template matStepLabel>Negociar ativo</ng-template>
+      <p><strong></strong> {{ tickerToBuy.name }}</p>
+      <p><strong>Ticker:</strong> {{ tickerToBuy.ticker }}</p>
+      <p><strong>Cotação da ação:</strong> $ {{ tickerToBuy.currentValue }}</p>
+      <p>
+        <strong>Data da ultima consulta:</strong>
+        {{ tickerToBuy.lastTimeRefreshed }}
+      </p>
+      <p>
+        <strong>Descrição da empresa:</strong> {{ tickerToBuy.description }}
+      </p>
+      <mat-form-field>
+        <mat-label>Quantidade</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="value"
+          placeholder="Ex: 10"
+          required
+        />
+      </mat-form-field>
+      <h3>
+        <strong>Valor total: $ {{ getTotalPrice() }}</strong>
+      </h3>
+    </form>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button matStepperPrevious>Voltar</button>
+      <button style="float: right;"  mat-button (click)="stepper.reset()">Finalizar</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
