@@ -20,6 +20,7 @@ import { ToBuyStonksComponent } from 'src/app/modules/wallet/to-buy-stonks/to-bu
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatStepperModule,
     MatTableModule,
     HttpClientModule,
+    MatExpansionModule,
   ],
 })
 export class DefaultModule {}

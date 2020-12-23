@@ -1,51 +1,39 @@
 <div class="resume">
-    <h1>Olá, usuário!</h1>
-    <p>Seu patrimônio atual é de <strong>R$ 50.000,00</strong></p>
-    <p>Você tem um total de <strong>R$ 50.000,00</strong> para continuar investindo</p>
+  <h1>Olá, usuário!</h1>
+  <p>Seu patrimônio atual é de <strong>$ 50000,00</strong></p>
+  <p>
+    Você tem um total de <strong>$ 50000,00</strong> para continuar investindo
+  </p>
 </div>
-<mat-grid-list cols="3" rowHeight="2:1">
-    <mat-grid-tile>
-        <mat-card class="stonk">
-        <mat-card-header>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
-            Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu
-            was originally bred for hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>VISUALIZAR</button>
-          <button mat-button>NEGOCIAR</button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-card class="stonk">
-        <mat-card-header>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from
-            Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu
-            was originally bred for hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>VISUALIZAR</button>
-          <button mat-button>NEGOCIAR</button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <button mat-fab color="primary">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-grid-tile>
-  </mat-grid-list>
-  
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="First">
+    <mat-card>
+      <h2>Nome da empresa:</h2>
+      <p>Ticker:</p>
+      <p>Cotação atual</p>
+      <p><strong>Transações</strong></p>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title> COMPRA </mat-panel-title>
+            <mat-panel-description> 23/12/2020 </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>Quantidade: 15</p>
+          <p>Valor: $156.00</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Self aware panel </mat-panel-title>
+            <mat-panel-description> Currently I am </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+        <div style="padding-top: 20px;">
+          <button mat-button>GERENCIAR CARTEIRA</button>
+      </div>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Second">Content 2</mat-tab>
+  <mat-tab label="Third">Content 3</mat-tab>
+</mat-tab-group>
