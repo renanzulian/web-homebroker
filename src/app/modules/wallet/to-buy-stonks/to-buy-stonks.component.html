@@ -90,7 +90,7 @@
         <input
           type="number"
           matInput
-          formControlName="value"
+          formControlName="quantity"
           placeholder="Ex: 10"
           required
         />
@@ -101,7 +101,7 @@
     </form>
     <div>
       <button mat-button matStepperPrevious>Voltar</button>
-      <button style="float: right" mat-button (click)="stepper.reset()">
+      <button style="float: right" mat-button (click)="buyNewStonk()">
         Finalizar
       </button>
     </div>

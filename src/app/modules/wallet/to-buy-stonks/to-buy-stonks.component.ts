@@ -120,7 +120,7 @@ export class ToBuyStonksComponent implements OnInit {
 
     this.stonksTraderForm = this._formBuilder.group({
       ticker: ['', Validators.required],
-      value: [1, Validators.required],
+      quantity: [1, Validators.required],
     });
   }
 
@@ -186,8 +186,33 @@ export class ToBuyStonksComponent implements OnInit {
 
   getTotalPrice() {
     return (
-      this.stonksTraderForm.get('value').value * this.tickerToBuy.currentValue
+      this.stonksTraderForm.get('quantity').value *
+      this.tickerToBuy.currentValue
     ).toFixed(2);
+  }
+
+  buyNewStonk() {
+    const payload = {
+      ticker: this.tickerToBuy.ticker,
+      quantity: this.stonksTraderForm.get('quantity').value,
+      price: this.tickerToBuy.currentValue,
+    }
+    this.http
+      .post('http://localhost:3000/trade', payload, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      })
+      .subscribe(
+        (result) => {
+          this.router.navigate(['/wallet']);
+        },
+        (error) => {
+          console.log(error);
+          if (error.status === 200) {
+            this.router.navigate(['/wallet']);
+          }
+        }
+      );
+    
   }
 
   openDialog(ticker): void {
