@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{ data.name }}</h1>
+<div mat-dialog-content>
+  <p>Preço da ação: $ {{(data.price).toFixed(2)}}</p>
+  <p>Qual ação deseja realizar?</p>
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="data.type">
+    <mat-radio-button value="sell">Vender</mat-radio-button>
+    <mat-radio-button value="buy" active>Comprar</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field style="padding-top: 10px;">
+    <mat-label>Quantidade</mat-label>
+    <input matInput type="number" [(ngModel)]="data.quantity" />
+  </mat-form-field>
+</div>
+<h3>Total: $ {{(data.quantity * data.price).toFixed(2)}}</h3>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    Realizar
+  </button>
+</div>

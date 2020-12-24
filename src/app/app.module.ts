@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DefaultModule } from './layouts/default/default.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
@@ -16,7 +17,8 @@ import { LoginModule } from './modules/login/login.module';
     BrowserAnimationsModule,
     DefaultModule,
     MatFormFieldModule,
-    LoginModule
+    MatRadioModule,
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

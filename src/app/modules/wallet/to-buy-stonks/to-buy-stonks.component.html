@@ -17,50 +17,16 @@
         <td mat-cell *matCellDef="let element">{{ element.ticker }}</td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef>Cotação atual</th>
-        <td mat-cell *matCellDef="let element">
-          R$ {{ element.value.toFixed(2) }}
-        </td>
-      </ng-container>
-
       <!-- Symbol Column -->
       <ng-container matColumnDef="quantity">
         <th mat-header-cell *matHeaderCellDef>Quantidade</th>
         <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef>Total</th>
-        <td mat-cell *matCellDef="let element">
-          R$ {{ element.total.toFixed(2) }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="profit">
-        <th mat-header-cell *matHeaderCellDef>Rentabilidade</th>
-        <td mat-cell *matCellDef="let element">
-          {{ (element.profit * 100).toFixed(1) }}%
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element">
-          <button
-          class="action-btn"  
-          mat-flat-button color="primary"
-          >
-          COMPRAR
-          </button>
-          <button
-          class="action-btn"  
-          mat-flat-button color="accent"
-          >
-          VENDER
-          </button>
-  
+          <button class="action-btn" mat-button color="primary" (click)="openDialog(element.ticker)">NEGOCIAR</button>
         </td>
       </ng-container>
 
@@ -69,13 +35,13 @@
     </table>
     <div style="padding-top: 30px">
       <h3>
-        Seu saldo na conta é de <strong>R$ {{ estate.toFixed(2) }}</strong>
+        Seu saldo na conta é de
+        <strong>$ {{ userData.balance.toFixed(2) }}</strong>
       </h3>
       <p *ngIf="dataSource.length >= 3" style="color: red">
         Você já atingiu o limite de 3 ações para sua carteira.
       </p>
-      <button style="float: right;" mat-button matStepperNext>Próximo</button>
-
+      <button style="float: right" mat-button matStepperNext>Próximo</button>
     </div>
   </mat-step>
   <mat-step [completed]="tickerToBuy.ticker !== ''">
@@ -100,9 +66,9 @@
       <p>
         Nome da empresa: {{ tickerToBuy.name || "Nenhum valor encontrado" }}
       </p>
-      <div style="padding-top: 30px;">
+      <div style="padding-top: 30px">
         <button mat-button matStepperPrevious>Voltar</button>
-        <button style="float: right;"  mat-button matStepperNext>Próximo</button>
+        <button style="float: right" mat-button matStepperNext>Próximo</button>
       </div>
     </form>
   </mat-step>
@@ -135,7 +101,9 @@
     </form>
     <div>
       <button mat-button matStepperPrevious>Voltar</button>
-      <button style="float: right;"  mat-button (click)="stepper.reset()">Finalizar</button>
+      <button style="float: right" mat-button (click)="stepper.reset()">
+        Finalizar
+      </button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
