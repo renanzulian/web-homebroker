@@ -11,7 +11,7 @@
                 placeholder="Email"
                 formControlName="email"
               />
-              <mat-error *ngIf="email.invalid">Email é obrigatório</mat-error>
+              <mat-error *ngIf="loginForm.get('email').invalid">Email é obrigatório</mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
@@ -21,14 +21,12 @@
                 type="password"
                 formControlName="password"
               />
-              <mat-error *ngIf="password.errors && password.errors.required">
-                Senha é obrigatório
-              </mat-error>
-              <mat-error *ngIf="password.errors && password.errors.minlength">
-                Senha deve conter ao menos 6 digitos
+              <mat-error *ngIf="loginForm.get('password').invalid">
+                Senha é obrigatório e deve conter ao menos 6 digitos
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
+            <p *ngIf="loginError !== ''" style="color: red; text-align: center;">{{loginError}}</p>
             <button
               mat-raised-button
               color="primary"
@@ -42,18 +40,15 @@
       </mat-tab>
       <mat-tab label="Cadastrar">
         <mat-card-content>
-          <form action="">
+          <form [formGroup]="registerForm" >
             <mat-form-field>
               <input
                 matInput
                 placeholder="Nome do usuário"
-                required
-                name="username"
-                ngModel
-                #username="ngModel"
+                formControlName="name"
               />
               <mat-icon matSuffix>perm_identity</mat-icon>
-              <mat-error *ngIf="username.invalid">
+              <mat-error *ngIf="registerForm.get('name').invalid">
                 Nome é obrigatório
               </mat-error>
             </mat-form-field>
@@ -61,12 +56,10 @@
               <input
                 matInput
                 placeholder="Email"
-                required
-                name="email"
-                ngModel
-                #email="ngModel"
+                type="email"
+                formControlName="email"
               />
-              <mat-error *ngIf="email.invalid">Email é obrigatório</mat-error>
+              <mat-error *ngIf="registerForm.get('email').invalid">Email é obrigatório</mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
@@ -74,17 +67,11 @@
                 matInput
                 placeholder="Senha"
                 type="password"
-                required
                 minlength="6"
-                name="password"
-                ngModel
-                #password="ngModel"
+                formControlName="password"
               />
-              <mat-error *ngIf="password.errors && password.errors.required">
-                Senha é obrigatório
-              </mat-error>
-              <mat-error *ngIf="password.errors && password.errors.minlength">
-                Senha deve conter ao menos 6 digitos
+              <mat-error *ngIf="registerForm.get('password').invalid">
+                Senha é obrigatório e deve conter ao menos 6 digitos
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
@@ -93,20 +80,18 @@
                 matInput
                 placeholder="Repetir a senha"
                 type="password"
-                required
                 minlength="6"
-                name="repassword"
-                ngModel
-                #repassword="ngModel"
+                formControlName="rePassword"
               />
               <mat-error
-                *ngIf="repassword.errors && repassword.errors.required"
+                *ngIf="registerForm.get('rePassword').invalid"
               >
                 Confirmar a senha é obrigatório
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
-            <button mat-raised-button color="primary" class="login-button">
+            <p *ngIf="registerError !== ''" style="color: red; text-align: center;">{{loginError}}</p>
+            <button mat-raised-button color="primary" class="login-button" (click)="register()">
               Registrar
             </button>
           </form>

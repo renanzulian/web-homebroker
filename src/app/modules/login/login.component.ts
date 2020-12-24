@@ -11,16 +11,26 @@ import { UtilsService } from 'src/app/utils.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  registerForm: FormGroup;
+
+  loginError = '';
+  registerError = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private utils: UtilsService,
     private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.minLength(6)],
+    });
+
+    this.registerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.email],
+      password: ['', Validators.minLength(6)],
+      rePassword: ['', Validators.minLength(6)],
     });
   }
 
@@ -28,6 +38,7 @@ export class LoginComponent implements OnInit {
 
   doLogin() {
     if (this.loginForm.valid) {
+      this.loginError = '';
       this.http
         .post('http://localhost:3000/login', {
           email: this.loginForm.get('email').value,
@@ -35,13 +46,44 @@ export class LoginComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            this.utils.setUser(result['email'], result['name']);
+            localStorage.setItem('token', result['token']);
+            localStorage.setItem('name', result['name']);
             this.router.navigate(['/wallet']);
           },
           (error) => {
             console.log(error);
+            this.loginError = error.error;
           }
         );
+    }
+  }
+
+  register() {
+    this.registerError = '';
+    const password = this.registerForm.get('password').value;
+    const rePassword = this.registerForm.get('rePassword').value;
+    if (this.registerForm.valid) {
+      if (password !== rePassword) {
+        this.registerError = 'As senhas inseridas devem ser a mesma';
+      } else {
+        this.http
+          .post('http://localhost:3000/register', {
+            name: this.registerForm.get('name').value,
+            email: this.registerForm.get('email').value,
+            password: this.registerForm.get('password').value,
+          })
+          .subscribe(
+            (result) => {
+              localStorage.setItem('token', result['token']);
+              localStorage.setItem('name', result['name']);
+              this.router.navigate(['/wallet']);
+            },
+            (error) => {
+              console.log(error.message);
+              this.registerError = error.error;
+            }
+          );
+      }
     }
   }
 }
