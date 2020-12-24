@@ -9,7 +9,7 @@ import { WalletComponent } from './modules/wallet/wallet.component';
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: '',
@@ -27,7 +27,16 @@ const routes: Routes = [
         path: 'buy',
         component: ToBuyStonksComponent,
       },
+      {
+        path: '',
+        redirectTo: '/wallet',
+        pathMatch: 'full'
+      },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'wallet',
   },
 ];
 

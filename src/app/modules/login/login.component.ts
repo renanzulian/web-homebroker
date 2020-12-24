@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loginError = '';
       this.http
-        .post('http://localhost:3000/login', {
+        .post('https://quiet-scrubland-31153.herokuapp.com/login', {
           email: this.loginForm.get('email').value,
           password: this.loginForm.get('password').value,
         })
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         this.registerError = 'As senhas inseridas devem ser a mesma';
       } else {
         this.http
-          .post('http://localhost:3000/register', {
+          .post('https://quiet-scrubland-31153.herokuapp.com/register', {
             name: this.registerForm.get('name').value,
             email: this.registerForm.get('email').value,
             password: this.registerForm.get('password').value,

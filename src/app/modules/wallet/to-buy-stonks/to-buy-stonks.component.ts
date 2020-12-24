@@ -89,7 +89,7 @@ export class ToBuyStonksComponent implements OnInit {
   getUserDetails() {
     console.log('Pegando dado');
     this.http
-      .get('http://localhost:3000/wallet', {
+      .get('https://quiet-scrubland-31153.herokuapp.com/wallet', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .subscribe(
@@ -198,7 +198,7 @@ export class ToBuyStonksComponent implements OnInit {
       price: this.tickerToBuy.currentValue,
     }
     this.http
-      .post('http://localhost:3000/trade', payload, {
+      .post('https://quiet-scrubland-31153.herokuapp.com/trade', payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .subscribe(
@@ -248,7 +248,7 @@ export class ToBuyStonksComponent implements OnInit {
       quantity: type === 'buy' ? Number(quantity) : -Number(quantity),
     };
     this.http
-      .post('http://localhost:3000/trade', payload, {
+      .post('https://quiet-scrubland-31153.herokuapp.com/trade', payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .subscribe(

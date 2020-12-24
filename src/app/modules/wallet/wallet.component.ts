@@ -35,7 +35,7 @@ export class WalletComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get('http://localhost:3000/wallet', {
+      .get('https://quiet-scrubland-31153.herokuapp.com/wallet', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .subscribe(
